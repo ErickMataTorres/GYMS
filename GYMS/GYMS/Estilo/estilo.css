@@ -1,0 +1,87 @@
+﻿body {
+}
+
+.Portada {
+    height: 700px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+#Fondo-Portada {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+}
+
+#Logo {
+    height: 90px;
+    width: 90px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    z-index: 10;
+}
+
+.mierda {
+    height: 200px;
+    width: 100%;
+    background-color: aqua;
+}
+
+#Frase-Presentacion {
+    font-size: 40px;
+    font-weight: bold;
+    color: #FFF;
+}
+
+#Btn-Ready {
+    height: auto;
+    width: 300px;
+    font-size: 18px;
+    background-color: transparent;
+    color: #FFF;
+    line-height: 26px;
+    border-radius: 28px;
+    border-color: #b00000;
+    cursor: pointer;
+    transition: width 0.2s;
+}
+
+    #Btn-Ready:hover {
+        width: 320px;
+        background-color: #b00000;
+    }
+
+#Aprende-Mas {
+    color: #FFF;
+    font-size: 18px;
+    opacity: 0.6;
+    position: absolute;
+    bottom: 0px;
+}
+
+/* Container for flexboxes */
+#roww {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* Create three equal columns that sits next to each other */
+#columna {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Style the footer */
+#footerr {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}

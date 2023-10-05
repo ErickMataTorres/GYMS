@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "Cliente";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+@*crear tabla y boton para agregar*@
+<div class="form-inline">
+    <label class="text-info">
+        Buscar:
+    </label>
+    <input type="text" class="form-control" placeholder="Id o nombre" id="txtIdNombre" />
+    <button style="margin-left:auto;" class="btn btn-success" id="btnNuevoCliente">Nuevo</button>
+
+</div>
+<table class="table table-responsive table-bordered table-striped table-dark">
+    <thead>
+        <tr style="text-align:center;">
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Contraseña</th>
+            <th scope="col">Editar / Borrar</th>
+        </tr>
+    </thead>
+    <tbody id="tablaClientes">
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2 class="text-white bg-primary">Getting started</h2>
+        <p class="text-white bg-primary">
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default text-white bg-primary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2 class="text-white bg-success">Get more Rutinas</h2>
+        <p class="text-white bg-success">NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default text-white bg-success" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2 class="text-white bg-info">Transformation</h2>
+        <p class="text-white bg-info">You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default text-warning bg-warning" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+
+<!-- Modal para guardar -->
+<div class="modal fade" id="RegistrarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="GuardarCliente">Registrar Nuevo cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-2">
+
+
+                        <input id="txtIdGuardar" class="form-control" placeholder="Id" />
+
+
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <input type="text" id="txtNombreGuardar" class="form-control" placeholder="Nombre" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input type="text" id="txtDireccionGuardar" class="form-control" placeholder="Dirección" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input type="text" id="txtTelefonoGuardar" class="form-control" placeholder="Teléfono" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input id="txtUsuarioGuardar" class="form-control" placeholder="Usuario" />
+                    </div>
+                    <div class="col">
+                        <input id="txtContraseñaGuardar" class="form-control" placeholder="Contraseña" type="password" />
+                    </div>
+
+                </div>
+
+                @*<button class="btn btn-primary">Registrar</button>|<button class="btn btn-danger">Borrar</button>*@
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para modificar -->
+<div class="modal fade" id="ModificarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModificarCliente">Modificar cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-2">
+
+
+                        <input id="txtIdModificar" class="form-control" placeholder="Id" disabled="disabled" />
+
+
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <input type="text" id="txtNombreModificar" class="form-control" placeholder="Nombre" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input type="text" id="txtDireccionModificar" class="form-control" placeholder="Dirección" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input type="text" id="txtTelefonoModificar" class="form-control" placeholder="Teléfono" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <input id="txtUsuarioModificar" class="form-control" placeholder="Usuario" />
+                    </div>
+                    <div class="col">
+                        <input id="txtContraseñaModificar" class="form-control" placeholder="Contraseña" type="password" />
+                    </div>
+
+                </div>
+
+                @*<button class="btn btn-primary">Registrar</button>|<button class="btn btn-danger">Borrar</button>*@
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*modal para borrar*@
+<div class="modal fade" id="BorrarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BorrarCliente">Borrar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Realmente quisiera borrar el cliente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button id="btnBorrar" type="button" class="btn btn-primary">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        LlenarTabla(); //agrego mi funcion para llenar tabla de inicio
+
+        $("#btnNuevoCliente").click(function () // funcion para mandar a llamar un formulario modal guardar
+        {
+            $("#RegistrarCliente").modal("show");
+        });
+
+
+        $("#btnModificar").click(function () // funcion para mandar a llamar un formulario modal editar
+        {
+            $("#ModificarCliente").modal("show");
+        });
+
+        $("#btnBorrar").click(function () // funcion para mandar a llamar un formulario modal borrar
+        {
+            $("#BorrarCliente").modal("show");
+        });
+
+        //$("#btnEditar").click(Editar);
+        $("#txtIdNombre").keypress(KeyPressEnter);
+        // $("#btnModificar").click(Modificar)
+    });
+
+    function KeyPressEnter(tecla) {
+        if (tecla.which == 13) {
+            LlenarTabla();
+        }
+    }
+    function LlenarTabla() {
+        var idNombre = $("#txtIdNombre").val();
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/Registro/ListaTablaClientes?IdNombre=' + idNombre, true);
+        //xhttp.open('GET', '/Busqueda/ListaAlumno?Matricula=' + matricula, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let datos = JSON.parse(this.responseText);
+                let tablaClientes = document.querySelector('#tablaClientes');
+                tablaClientes.innerHTML = '';
+                for (let item of datos) {
+                    tablaClientes.innerHTML +=
+                        `
+                            <tr style="text-align:center;">
+                                <td>${item.Id}</td>
+                                <td>${item.Nombre}</td>
+                                <td>${item.Direccion}</td>
+                                <td>${item.Telefono}</td>
+                                <td>${item.Usuario}</td>
+                                <td>${item.Contraseña}</td>
+
+
+
+                                <td><button class="btn btn-info" id="${item.Id}" onclick="Cargar(this.id)">Editar</button>|<button id="${item.Id}" onclick="ModalBorrar(this.id)" class="btn btn-danger">Borrar</button></td>
+                            </tr>
+                        `
+                }
+            }
+        }
+    }
+
+
+    //funcion para guardar cliente
+    function Guardar() {
+        var params =
+        {
+            //Id: $("#txtIdGuardar").val(),
+            Nombre: $("#txtNombreGuardar").val(),
+            Direccion: $("#txtDireccionGuardar").val(),
+            Telefono: $("#txtTelefonoGuardar").val(),
+            Usuario: $("#txtUsuarioGuardar").val(),
+            Contraseña: $("#txtContraseñaGuardar").val(),
+
+            //FechaNacimiento: ($("#cbDiaGuardar").val() + "/" + $("#cbMesGuardar").val() + "/" + $("#txtAñoGuardar").val())
+        };
+        $.ajax
+            ({
+                type: "POST",
+                url: "/Registro/Guardar",
+                data: params,
+                success: function (r, s, j) {
+                    if (r.startsWith("Ok")) {
+                        LlenarTabla();
+                        $('#RegistrarCliente').modal('hide');
+                        alert("Se Guardo Correctamente");
+                    }
+                    else {
+
+                        alert(r);
+                    }
+                },
+                dataType: "Text"
+            });
+    }
+    function Cargar(id) {
+        var param = {
+            Id: id
+        };//¿Querias moverle a algo?
+        $.ajax({
+            type: "POST",
+            url: "/Registro/CargarCliente",
+            data: param,
+            success: function (r, s, j) {
+                $("#ModificarCliente").modal("show");
+                $("#txtIdModificar").val(r[0].Id);
+                $("#txtNombreModificar").val(r[0].Nombre);
+                $("#txtDireccionModificar").val(r[0].Direccion);
+                $("#txtTelefonoModificar").val(r[0].Telefono);
+                $("#txtUsuarioModificar").val(r[0].Usuario);
+                $("#txtContraseñaModificar").val(r[0].Contraseña);
+
+            },
+            dataType: "json"
+        });
+    }
+    function Editar() {
+        var params =
+        {
+            Id: $("#txtIdModificar").val(),
+            Nombre: $("#txtNombreModificar").val(),
+            Direccion: $("#txtDireccionModificar").val(),
+            Telefono: $("#txtTelefonoModificar").val(),
+            Usuario: $("#txtUsuarioModificar").val(),
+            Contraseña: $("#txtContraseñaModificar").val()
+
+
+            //FechaNacimiento: ($("#cbDiaEditar").val() + "/" + $("#cbMesEditar").val() + "/" + $("#txtAñoEditar").val())
+        };
+        $.ajax
+            ({
+
+                type: "POST",
+                url: "/Registro/EditarCliente",
+                data: params,
+                success: function (r, s, j) {
+                    if (r.startsWith("Ok")) {
+                        LlenarTabla();
+                        $('#ModificarCliente').modal('hide');
+                        alert("Se Edito Correctamente");
+
+                    }
+                    else {
+                        alert(r);
+                    }
+                },
+                dataType: "Text"
+            });
+    }
+
+    //funcion para borrar cliente
+    function ModalBorrar(id) {
+        $("#BorrarCliente").modal("show");
+        $("#btnBorrar").click(function () {
+            var param =
+            {
+                Id: id
+            };
+            $.ajax
+                ({
+                    type: "POST",
+                    url: "/Registro/BorrarCliente",
+                    data: param,
+                    success: function (r, s, j) {
+                        if (r.startsWith("Ok")) {
+                            LlenarTabla();
+                            $('#BorrarCliente').modal('hide');
+                            alert("Se Ha Borrado Correctamente");
+                        }
+                        else {
+                            alert(r);
+                        }
+                    },
+                    dataType: "Text"
+                });
+        });
+    }
+
+</script>
